@@ -14,13 +14,12 @@ class Boxers extends Underwear{
     PVector ali = new PVector(meg.x - g_rate(ben.y - meg.y), ben.y);
     PVector phe = new PVector(meg.x + g_rate(ben.y - meg.y), ali.y);
 
-    Boxers(){
-    }
+    Boxers(){}
 
     @Override
     void manifestation(){
+        // TODO: bend a line.
         translate((W_SIZE-dub.x)/2, (W_SIZE-ben.y)/2);
-        // Waist of boxer shorts.
         v_line(miz, dub);
         v_line(miz, ben);
         v_line(ben, ali);
@@ -28,7 +27,5 @@ class Boxers extends Underwear{
         v_line(meg, phe);
         v_line(phe, mer);
         v_line(mer, dub);
-
-        // TODO: Lower line of the right foot.
     }
 }

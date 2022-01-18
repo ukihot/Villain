@@ -12,8 +12,8 @@ void settings(){
 
 void setup(){
     background( #ffffff );
-    textFont(createFont("Meiryo", 50));
     boxers = new Boxers();
+    shorts = new Shorts();
 }
 
 void draw(){
