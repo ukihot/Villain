@@ -16,33 +16,33 @@ void setup(){
 }
 
 void draw(){
-    translate(76,76);
+    translate(76,153);
     boxers.manifestation();
 }
 
 class underwear {
-    //
-    // Gacrux ._______. Imai
-    //       /         \
-    //      /     .Ginan\
-    //     ._____/ \_____.
-    //    Mimoza          Acrux
+    //                [Big Dipper]
+    //         Mizar  ._________. Dubhe
+    //               /           \
+    //              /      .Megrez\
+    // Benetonasch ._____./ \._____.
+    //                Alioth  Phecda Merak
     //
     public float b_width, b_height;
-    public PVector gacrux, imai, mimoza, acrux, ginan;
-    public PVector l_star, r_star;
+    public PVector mizar, dubhe, benetonasch, merak, megrez;
+    public PVector alioth, phecda;
 
     underwear(){
         // Just define the size.
         b_width = g_rate(W_SIZE);
         b_height = g_rate(b_width);
-        gacrux = new PVector(0, 0);
-        imai = new PVector(b_width, 0);
-        mimoza = new PVector(-b_width/6, b_height);
-        acrux = new PVector(b_width*7/6, b_height);
-        ginan = new PVector(b_width/2, g_rate(b_height));
-        l_star = new PVector(b_width/3, b_height);
-        r_star = new PVector(b_width*2/3, b_height);
+        mizar = new PVector(0, 0);
+        dubhe = new PVector(b_width, 0);
+        benetonasch = new PVector(-b_width/6, b_height);
+        merak = new PVector(b_width*7/6, b_height);
+        megrez = new PVector(b_width/2, g_rate(b_height));
+        alioth = new PVector(b_width/3, b_height);
+        phecda = new PVector(b_width*2/3, b_height);
     }
 
     void manifestation(){
@@ -50,7 +50,7 @@ class underwear {
         strokeWeight( 3 );
         stroke( #f8a2ab );
         beginShape();
-        for (float i = gacrux.x; i <= imai.x; i+=b_width/24) {
+        for (float i = mizar.x; i <= dubhe.x; i+=b_width/24) {
             vertex(i , noise(i,i)*4);
         }
         endShape();
@@ -58,10 +58,10 @@ class underwear {
         // The line on the right side of the right foot.
         stroke( #0033a0 );
         beginShape();
-        float j = mimoza.y;
-        for (float i = mimoza.x; i <= gacrux.x; i+=b_width/24){
+        float j = benetonasch.y;
+        for (float i = benetonasch.x; i <= mizar.x; i+=b_width/24){
             vertex(i, j);
-            j -= mimoza.y/24;
+            j -= benetonasch.y/24;
         }
         endShape();
 
