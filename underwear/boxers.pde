@@ -1,38 +1,14 @@
-//
-// All comments are translations by DeepL.
-//
-// To use it as an icon for Twitter, make the size 400x400.
-final int W_SIZE = 400;
-final float BW = 247.21;
-final float BH = 152.79;
-underwear boxers;
-
-void settings(){
-    size(W_SIZE,W_SIZE);
-}
-
-void setup(){
-    background( #ffffff );
-    textFont(createFont("Meiryo", 50));
-    boxers = new underwear();
-}
-
-void draw(){
-    translate((W_SIZE-BW)/2,W_SIZE/2-g_rate(BH));
-    boxers.manifestation();
-}
-
-class underwear {
+class Boxers {
     //                [Big Dipper]
     //         Mizar  ._________. Dubhe
-    //               /           \
+    //               /     |     \
     //              /      .Megrez\
     // Benetonasch ._____./ \._____.
     //                Alioth  Phecda Merak
     //
     public PVector mizar, dubhe, benetonasch, merak, megrez, alioth, phecda;
 
-    underwear(){
+    Boxers(){
         // Just define the size.
         mizar = new PVector(0, 0);
         dubhe = new PVector(BW, 0);
@@ -65,9 +41,4 @@ class underwear {
 
         // Lower line of the right foot.
     }
-}
-
-public float g_rate(float a){
-        float co =  (1+sqrt(5))/2;
-        return a/co;
 }
