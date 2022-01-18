@@ -30,7 +30,8 @@ class Underwear{
         float co =  (1+sqrt(5))/2;
         return a/co;
     }
-    void v_line(PVector a, PVector b){
-        line(a.x, a.y, b.x, b.y);
+
+    void v_line(PVector _en, PVector _ti){
+        line(_en.x, _en.y, _ti.x, _ti.y);
     }
 }
