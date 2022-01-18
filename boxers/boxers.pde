@@ -3,6 +3,8 @@
 //
 // To use it as an icon for Twitter, make the size 400x400.
 final int W_SIZE = 400;
+final float BW = 247.21;
+final float BH = 152.79;
 underwear boxers;
 
 void settings(){
@@ -16,7 +18,7 @@ void setup(){
 }
 
 void draw(){
-    translate(76,153);
+    translate((W_SIZE-BW)/2,W_SIZE/2-g_rate(BH));
     boxers.manifestation();
 }
 
@@ -28,21 +30,17 @@ class underwear {
     // Benetonasch ._____./ \._____.
     //                Alioth  Phecda Merak
     //
-    public float b_width, b_height;
-    public PVector mizar, dubhe, benetonasch, merak, megrez;
-    public PVector alioth, phecda;
+    public PVector mizar, dubhe, benetonasch, merak, megrez, alioth, phecda;
 
     underwear(){
         // Just define the size.
-        b_width = g_rate(W_SIZE);
-        b_height = g_rate(b_width);
         mizar = new PVector(0, 0);
-        dubhe = new PVector(b_width, 0);
-        benetonasch = new PVector(-b_width/6, b_height);
-        merak = new PVector(b_width*7/6, b_height);
-        megrez = new PVector(b_width/2, g_rate(b_height));
-        alioth = new PVector(b_width/3, b_height);
-        phecda = new PVector(b_width*2/3, b_height);
+        dubhe = new PVector(BW, 0);
+        benetonasch = new PVector(-BW/6, BH);
+        merak = new PVector(BW*7/6, BH);
+        megrez = new PVector(BW/2, g_rate(BH));
+        alioth = new PVector(BW/3, BH);
+        phecda = new PVector(BW*2/3, BH);
     }
 
     void manifestation(){
@@ -50,7 +48,7 @@ class underwear {
         strokeWeight( 3 );
         stroke( #f8a2ab );
         beginShape();
-        for (float i = mizar.x; i <= dubhe.x; i+=b_width/24) {
+        for (float i = mizar.x; i <= dubhe.x; i+=BW/24) {
             vertex(i , noise(i,i)*4);
         }
         endShape();
@@ -59,7 +57,7 @@ class underwear {
         stroke( #0033a0 );
         beginShape();
         float j = benetonasch.y;
-        for (float i = benetonasch.x; i <= mizar.x; i+=b_width/24){
+        for (float i = benetonasch.x; i <= mizar.x; i+=BW/24){
             vertex(i, j);
             j -= benetonasch.y/24;
         }
@@ -67,9 +65,9 @@ class underwear {
 
         // Lower line of the right foot.
     }
+}
 
-    float g_rate(float a){
+public float g_rate(float a){
         float co =  (1+sqrt(5))/2;
         return a/co;
-    }
 }
