@@ -6,7 +6,7 @@ class Boxers extends Underwear{
     // Benetonasch ._____./ \._____.
     //                Alioth  Phecda Merak
     //
-    PVector miz = new PVector(0, 0);
+    PVector miz = new PVector(noise(frameCount)*5, 0);
     PVector dub = new PVector(miz.x + g_rate(W_SIZE), miz.y);
     PVector ben = new PVector(miz.x, miz.y + (W_SIZE - g_rate(W_SIZE)));
     PVector mer = new PVector(dub.x, ben.y);
@@ -14,7 +14,9 @@ class Boxers extends Underwear{
     PVector ali = new PVector(meg.x - g_rate(ben.y - meg.y), ben.y);
     PVector phe = new PVector(meg.x + g_rate(ben.y - meg.y), ali.y);
 
-    Boxers(){}
+    Boxers(){
+        noiseDetail(3, 0.4);
+    }
 
     @Override
     void manifestation(){
@@ -27,5 +29,6 @@ class Boxers extends Underwear{
         v_line(meg, phe);
         v_line(phe, mer);
         v_line(mer, dub);
+        text(frameCount, 100, height/2);
     }
 }

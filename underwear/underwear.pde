@@ -11,13 +11,21 @@ void settings(){
 }
 
 void setup(){
-    background( #ffffff );
-    boxers = new Boxers();
-    shorts = new Shorts();
+    textFont(createFont("Meiryo", 50));
 }
 
 void draw(){
+    fill(#ffffff);
+    stroke(#ffffff);
+    background( #000000 );
+    boxers = new Boxers();
+    shorts = new Shorts();
     boxers.manifestation();
+
+    if (frameCount > 2000) {
+        noLoop();
+        exit();
+    }
 }
 
 class Underwear{
