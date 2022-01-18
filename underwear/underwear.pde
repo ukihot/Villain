@@ -3,8 +3,6 @@
 //
 // To use it as an icon for Twitter, make the size 400x400.
 final int W_SIZE = 400;
-final float BW = 247.21;
-final float BH = 152.79;
 Boxers boxers;
 Shorts shorts;
 
@@ -19,20 +17,20 @@ void setup(){
 }
 
 void draw(){
-    translate((W_SIZE-BW)/2,W_SIZE/2-g_rate(BH));
     boxers.manifestation();
 }
 
 class Underwear{
-    PVector miz, dub, ben, mer, meg, ali, phe;
-
-
-    Underwear(PVector _miz, PVector _dub, PVector _ben, PVector _mer, PVector _meg , PVector _ali, PVector _phe){
-
+    Underwear(){
     }
-}
 
-public float g_rate(float a){
+    void manifestation(){}
+
+    float g_rate(float a){
         float co =  (1+sqrt(5))/2;
         return a/co;
+    }
+    void v_line(PVector a, PVector b){
+        line(a.x, a.y, b.x, b.y);
+    }
 }
