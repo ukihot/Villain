@@ -39,6 +39,6 @@ class Boxers {
         }
         endShape();
 
-        // Lower line of the right foot.
+        // TODO: Lower line of the right foot.
     }
 }
