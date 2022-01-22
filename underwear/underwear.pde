@@ -41,6 +41,7 @@ class Underwear{
 
     // Meteorologist Edward Lorenz simplified the equations of fluid dynamics to describe the flow of the atmosphere under special circumstances.
     // Underwear is chaos.
+    // TODO: fix
     PVector chaos(PVector target){
         float p = 10;
         float r = 28;
