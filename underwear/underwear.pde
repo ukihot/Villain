@@ -32,8 +32,7 @@ class Underwear{
     }
 
     float g_rate(float a){
-        float co =  (1+sqrt(5))/2;
-        return a/co;
+        return a/((1+sqrt(5))/2);
     }
 
     void v_line(PVector _en, PVector _ti){
