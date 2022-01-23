@@ -15,18 +15,17 @@ I drew the underwear, incorporating simple particle simulations I had experience
 */
 
 // To use it as an icon for Twitter, make the size 400x400.
-final int W_SIZE = 800;
+final int W_SIZE = 400;
 Boxers boxers;
 Shorts shorts;
-
 
 void settings(){
     size(W_SIZE,W_SIZE);
 }
 
 void setup(){
-    textFont(createFont("Meiryo", 50));
-    boxers = new Boxers(0,0);
+    textFont(createFont("Meiryo", 10));
+    boxers = new Boxers();
     shorts = new Shorts();
 }
 
@@ -41,18 +40,15 @@ void draw(){
 
 // like abstract class
 class Underwear{
+    final float g = (sqrt(5.0) + 1.0 ) / 2.0;
     Underwear(){
-    }
-
-    float g_rate(float a){
-        return a/((1+sqrt(5))/2);
     }
 
     void v_line(PVector _en, PVector _ti){
         line(_en.x, _en.y, _ti.x, _ti.y);
     }
 
-    // Underwear is chaos.
+    // Underwear is one of the constellations.
     void constellation(){
 
     }
