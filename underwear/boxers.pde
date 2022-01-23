@@ -25,8 +25,6 @@ class Boxers extends Underwear{
     }
 
     void main(){
-        // update
-        update();
         translate((W_SIZE-dub.x)/2, (W_SIZE-ben.y)/2);
         v_line(miz, dub);
         v_line(miz, ben);
@@ -38,7 +36,7 @@ class Boxers extends Underwear{
         text(frameCount, 100, height/2);
     }
 
-    void update(){
+    void pattern_chaos(){
         miz.add(chaos(miz));
         dub.add(chaos(dub));
         ben.add(chaos(ben));
@@ -47,4 +45,6 @@ class Boxers extends Underwear{
         ali.add(chaos(ali));
         phe.add(chaos(phe));
     }
+
+    
 }

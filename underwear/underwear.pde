@@ -1,10 +1,13 @@
-//
-// All comments are translations by DeepL.
-//
+/**
+@author @goziu
+All comments are translations by DeepL.
+*/
+
 // To use it as an icon for Twitter, make the size 400x400.
 final int W_SIZE = 800;
 Boxers boxers;
 Shorts shorts;
+
 
 void settings(){
     size(W_SIZE,W_SIZE, P3D);
@@ -12,7 +15,7 @@ void settings(){
 
 void setup(){
     textFont(createFont("Meiryo", 50));
-    boxers = new Boxers(1,1,1);
+    boxers = new Boxers(0,0,0);
     shorts = new Shorts();
 }
 
@@ -53,4 +56,5 @@ class Underwear{
         PVector d = new PVector(dx*dt, dy*dt, dz*dt);
         return d.setMag(0.1);
     }
+    
 }
