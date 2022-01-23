@@ -1,6 +1,5 @@
 class Stars {
     float x, y;
-    float id;
 
     Stars(float _x, float _y){
         x = _x;

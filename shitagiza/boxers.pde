@@ -21,11 +21,9 @@ class Boxers extends Underwear{
     }
 
     void main(){
-        translate(width / 2, ginan);
+        translate(width / 2, belt * 2);
         discovery();
-        for (Stars s : stars) {
-            s.display();
-        }
+        connect();
     }
 
     void discovery(){
@@ -48,6 +46,27 @@ class Boxers extends Underwear{
             return (_y - intercept) / g;
         } else {
             return (intercept - _y) / g;
+        }
+    }
+
+    void connect(){
+        int gon_max = 5;
+        for (int j = 0; j < s-gon_max; j++){
+            int gon = int(random(2, gon_max));
+
+            fill(random(255),random(255),random(255));
+            stroke(random(255),random(255),random(255));
+            beginShape();
+            curveVertex(stars.get(j).x, stars.get(j).y);
+            curveVertex(stars.get(j).x, stars.get(j).y);
+            for (int index = j+1; index < j + gon; index++){
+                curveVertex(stars.get(index).x, stars.get(index).y);
+            }
+            curveVertex(stars.get(j+gon).x, stars.get(j+gon).y);
+            curveVertex(stars.get(j+gon).x, stars.get(j+gon).y);
+            endShape();
+
+            j += gon;
         }
     }
 }
