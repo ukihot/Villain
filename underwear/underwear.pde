@@ -26,7 +26,7 @@ void draw(){
     background( #000000 );
     boxers.main();
 
-    //if (frameCount > 2000) exit();
+    if (frameCount > 2000) exit();
 }
 
 // like abstract class
