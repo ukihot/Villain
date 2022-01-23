@@ -38,6 +38,9 @@ class Boxers extends Underwear{
             }
             stars.add(star);
         }
+        //for (Stars s : stars) {
+        //    s.display();
+        //}
     }
 
     float thigh(float _x, float _y){
@@ -49,13 +52,15 @@ class Boxers extends Underwear{
         }
     }
 
+    //TODO: 隣接する星同士でコネクションしたい
     void connect(){
         int gon_max = 5;
         for (int j = 0; j < s-gon_max; j++){
             int gon = int(random(2, gon_max));
 
-            fill(random(255),random(255),random(255));
-            stroke(random(255),random(255),random(255));
+            fill(random(255),random(255),random(255), random(100));
+            stroke(random(255),random(255),random(255), random(100));
+            strokeWeight(map(noise(j),0,1,0,8));
             beginShape();
             curveVertex(stars.get(j).x, stars.get(j).y);
             curveVertex(stars.get(j).x, stars.get(j).y);

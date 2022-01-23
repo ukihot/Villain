@@ -30,7 +30,7 @@ void setup(){
 }
 
 void draw(){
-    background( #000000 );
+    background( #F5F5F5 );
     boxers.main();
     noLoop();
     //if (frameCount > 2000) exit();
@@ -39,7 +39,7 @@ void draw(){
 // like abstract class
 class Underwear{
     final float g = (sqrt(5.0) + 1.0 ) / 2.0;
-    final int s = 200;
+    final int s = 100;
     Underwear(){
     }
 
