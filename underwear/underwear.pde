@@ -56,5 +56,4 @@ class Underwear{
         PVector d = new PVector(dx*dt, dy*dt, dz*dt);
         return d.setMag(0.1);
     }
-    
 }
