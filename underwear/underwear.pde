@@ -1,6 +1,7 @@
 /**
 @author @goziu
 All comments are translations by DeepL.
+I drew the underwear, incorporating simple particle simulations I had experienced in my master's program.
 */
 
 // To use it as an icon for Twitter, make the size 400x400.
@@ -28,6 +29,7 @@ void draw(){
     //if (frameCount > 2000) exit();
 }
 
+// like abstract class
 class Underwear{
     Underwear(){
     }
