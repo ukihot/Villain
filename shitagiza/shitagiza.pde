@@ -41,7 +41,7 @@ void draw(){
 // like abstract class
 class Underwear{
     final float g = (sqrt(5.0) + 1.0 ) / 2.0;
-    final int s = 100;
+    final int s = 1000;
     Underwear(){
     }
 

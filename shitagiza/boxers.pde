@@ -31,7 +31,7 @@ class Boxers extends Underwear{
     void discovery(){
         for (int p = 0; p < s; p++){
             float _x = random(-imai, imai);
-            float _y = random(-belt, ginan);
+            float _y = random(-belt, acrux);
             Stars star;
             if (_y > 0) {
                 star = new Stars(thigh(_x, _y), _y);
