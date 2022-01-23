@@ -22,7 +22,6 @@ class Boxers extends Underwear{
 
     void main(){
         translate(width / 2, ginan);
-        text(frameCount, 100,height/2);
         discovery();
         for (Stars s : stars) {
             s.display();
