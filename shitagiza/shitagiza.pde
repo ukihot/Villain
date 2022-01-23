@@ -34,7 +34,7 @@ void draw(){
     stroke(#ffffff);
     background( #000000 );
     boxers.main();
-
+    noLoop();
     //if (frameCount > 2000) exit();
 }
 

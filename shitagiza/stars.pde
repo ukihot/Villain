@@ -8,7 +8,7 @@ class Stars {
     }
 
     void display(){
-        stroke(0, 0, 225);
+        stroke(random(255),random(255),random(255));
         strokeWeight(9);
         point(x,y);
     }

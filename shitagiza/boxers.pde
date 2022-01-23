@@ -9,14 +9,14 @@ class Boxers extends Underwear{
     *                 y
     */
     float imai, acrux, ginan;
+    float belt;
     ArrayList<Stars> stars;
 
     Boxers(){
-        // -imai/2 < x < imai/2
-        imai = W_SIZE / g;
-        // -(acrux-ginan) < y < acrux
-        acrux = imai/2 * g;
+        imai = (W_SIZE / g) /2;
+        acrux = imai * g;
         ginan = acrux - ((acrux - (acrux / g)) / g);
+        belt = acrux - ginan;
         stars = new ArrayList<Stars>();
     }
 
@@ -30,15 +30,25 @@ class Boxers extends Underwear{
     }
 
     void discovery(){
-        float _sx;
-        float _sy;
-        float l = (acrux-ginan);
-
-        for (p = 0; p < s ; p++){
-            _sx = random(-imai/2, imai/2);
-            _sy = random(-l, acrux);
-            Stars star = new Stars(_sx, _sy);
+        for (int p = 0; p < s; p++){
+            float _x = random(-imai, imai);
+            float _y = random(-belt, ginan);
+            Stars star;
+            if (_y > 0) {
+                star = new Stars(thigh(_x, _y), _y);
+            } else {
+                star = new Stars(_x, _y);
+            }
             stars.add(star);
+        }
+    }
+
+    float thigh(float _x, float _y){
+        float intercept = random(-(g*imai), ginan);
+        if (_x > 0){
+            return (_y - intercept) / g;
+        } else {
+            return (intercept - _y) / g;
         }
     }
 }
