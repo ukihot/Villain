@@ -38,7 +38,7 @@ class Boxers extends Underwear{
                 star = new Stars(_x, _y, p);
             }
             // 登録済みの星を振り返る
-            reconsider();
+            reconsider(star);
             stars.add(star);
         }
     }
@@ -80,18 +80,18 @@ class Boxers extends Underwear{
     //     }
     // }
 
-    void reconsider(){
+    void reconsider(Stars _s){
         for (Stars _t : stars) {
             for (ArrayList<Stars> book : encyclopedia) {
                 println(book.get(0).x, book.get(0).y, book.get(1).x, book.get(1).y);
-                if (!isCross(star, _t, book.get(0), book.get(1))){
+                if (!isCross(_s, _t, book.get(0), book.get(1))){
                     println("HELLO?");
                     ArrayList<Stars> new_book = new ArrayList<Stars>();
-                    star.reg_links(_t.id);
-                    new_book.add(star);
+                    new_book.add(_s);
                     new_book.add(_t);
                     encyclopedia.add(new_book);
                 }
             }
         }
     }
+}
