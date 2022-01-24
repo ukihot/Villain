@@ -1,6 +1,6 @@
 class Boxers extends Underwear {
   /*
-    *      -a   ______|_____
+   *      -a   ______|_____
    *       ___ |_____|_____|_____> x
    *           /     |     \
    *  g(a)=g  /      |      \ y = (g/g(g))x
@@ -14,6 +14,7 @@ class Boxers extends Underwear {
   float interstellar;
   int first_star_id;
   ArrayList<Integer> next_star_ids;
+  Star barycenter;
 
   Boxers() {
     imai = (W_SIZE / gold_rate) /2;
@@ -23,6 +24,7 @@ class Boxers extends Underwear {
     stars = new ArrayList<Stars>();
     interstellar = imai/10.0;
     next_star_ids = new ArrayList<Integer>();
+    barycenter = new Stars(acrux, ginan/2);
   }
 
   void main() {
@@ -56,46 +58,49 @@ class Boxers extends Underwear {
       }
       stars.add(star);
     }
+    next_star_ids.add(first_star_id);
   }
 
   void bordering() {
     Stars first_star = stars.get(first_star_id);
 
+    pushMatrix();
     recursive_search(first_star);
+    popMatrix();
     for (int b_id : next_star_ids) {
       stars.get(b_id).display();
     }
   }
 
   void recursive_search (Stars _f) {
+    //TODO:重心からみて外側に開く。
     int ini_angle = 315;
     float rod = 10.0;
     boolean notFound = true;
 
-    pushMatrix();
     translate(_f.x, _f.y);
-    rotate(radians(ini_angle));
-    for (int _index=0; notFound; _index++){
-      Stars _star = stars.get(_index);
-      println(_f.id);
-      if (_star.x < (rod / gold_rate ) && _star.y < rod) {
-        notFound = false;
-        if (!isExistinArray(next_star_ids, _star.id)) {
-          println("FOUND");
+
+    for (int _angle=ini_angle; notFound; _angle++){
+      rotate(radians(_angle));
+      for (Stars _star : stars){
+        if (_f.id == _star.id) continue;
+        if (_star.x < (rod / gold_rate ) && _star.y < rod) {
+          if (isExistinArray(next_star_ids, _star.id)) continue;
+          notFound = false;
+          if (next_star_ids.get(0) == _star.id) break;
           next_star_ids.add(_star.id);
+          println("FOUND !!! " + next_star_ids);
           recursive_search(_star);
         }
-      } else {
-        ini_angle++;
-        if (ini_angle > 675) {
-          ini_angle = 315;
-          rod *= 1.5;
-        }
-        rotate(radians(ini_angle));
       }
-      break;
-    }
-    popMatrix();
+      if(notFound) {
+          //println(_f.id+","+rod+","+_angle+" ... continue ... ");
+          if (_angle > ini_angle + 360) {
+            _angle = ini_angle;
+            rod *= 1.4;
+          }
+        }
+      }
   }
 
   // Neighborhood-connect
