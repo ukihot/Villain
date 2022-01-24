@@ -70,24 +70,28 @@ class Boxers extends Underwear {
   void recursive_search (Stars _f) {
     int ini_angle = 315;
     float rod = 10.0;
+    boolean notFound = true;
 
     pushMatrix();
-    for (Stars _star : stars) {
-      boolean notFound = true;
-
-      translate(_f.x, _f.y);
-      rotate(radians(ini_angle));
-      while (notFound) {
-        if (_star.x < (rod / gold_rate ) && _star.y < rod) {
-          notFound = false;
-          if (!isExistinArray(next_star_ids, _star.id)) {
-            next_star_ids.add(_star.id);
-            recursive_search(stars.get(_star.id));
-          }
-        } else {
-          ini_angle++;
-          rotate(radians(ini_angle));
+    translate(_f.x, _f.y);
+    rotate(radians(ini_angle));
+    for (int _index=0; notFound; _index++){
+      Stars _star = stars.get(_index);
+      println(_f.id);
+      if (_star.x < (rod / gold_rate ) && _star.y < rod) {
+        notFound = false;
+        if (!isExistinArray(next_star_ids, _star.id)) {
+          println("FOUND");
+          next_star_ids.add(_star.id);
+          recursive_search(_star);
         }
+      } else {
+        ini_angle++;
+        if (ini_angle > 675) {
+          ini_angle = 315;
+          rod *= 1.5;
+        }
+        rotate(radians(ini_angle));
       }
       break;
     }
