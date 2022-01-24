@@ -25,21 +25,28 @@ void settings(){
 
 void setup(){
     textFont(createFont("Meiryo", 10));
-    boxers = new Boxers();
-    shorts = new Shorts();
 }
 
 void draw(){
-    background( #F5F5F5 );
+    background( #151515 );
+    boxers = new Boxers();
     boxers.main();
-    noLoop();
+    shorts = new Shorts();
+    //noLoop();
     //if (frameCount > 2000) exit();
+    if (mousePressed == true) noLoop();
 }
 
-// like abstract class
+void mouseReleased() {
+    loop();
+}
+
+// Util like abstract class
 class Underwear{
-    final float g = (sqrt(5.0) + 1.0 ) / 2.0;
-    final int s = 100;
+    final float gold_rate = (sqrt(5.0) + 1.0 ) / 2.0;
+    final int number_stars = 100;
+    ArrayList<ArrayList<Stars>> encyclopedia = new ArrayList<ArrayList<Stars>>();
+
     Underwear(){
     }
 
@@ -47,8 +54,11 @@ class Underwear{
         line(_en.x, _en.y, _ti.x, _ti.y);
     }
 
-    // Underwear is one of the constellations.
-    void constellation(){
-
+    boolean isCross(Stars head1, Stars tail1, Stars head2, Stars tail2){
+        float ta = (head1.x - tail2.x) * (head2.y - head1.y) + (head1.y - tail2.y) * (head1.x - head2.x);
+        float tb = (head1.x - tail2.x) * (tail2.y - head1.y) + (head1.y - tail2.y) * (head1.x - tail2.x);
+        float tc = (head2.x - tail2.x) * (head1.y - head2.y) + (head2.y - tail2.y) * (head2.x - head1.x);
+        float td = (head2.x - tail2.x) * (tail2.y - head2.y) + (head2.y - tail2.y) * (head2.x - tail2.x);
+        return tc * td < 0 && ta * tb < 0;
     }
 }
