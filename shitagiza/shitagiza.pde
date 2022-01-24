@@ -44,13 +44,15 @@ void mouseReleased() {
 // Util like abstract class
 class Underwear{
     final float gold_rate = (sqrt(5.0) + 1.0 ) / 2.0;
-    final int number_stars = 100;
+    final int number_stars = 200;
     ArrayList<ArrayList<Stars>> encyclopedia = new ArrayList<ArrayList<Stars>>();
 
     Underwear(){
     }
 
-    void v_line(PVector _en, PVector _ti){
+    void v_line(Stars _en, Stars _ti){
+        stroke(random(255),random(255),random(255), random(255));
+        strokeWeight(random(8));
         line(_en.x, _en.y, _ti.x, _ti.y);
     }
 
@@ -60,5 +62,12 @@ class Underwear{
         float tc = (head2.x - tail2.x) * (head1.y - head2.y) + (head2.y - tail2.y) * (head2.x - head1.x);
         float td = (head2.x - tail2.x) * (tail2.y - head2.y) + (head2.y - tail2.y) * (head2.x - tail2.x);
         return tc * td < 0 && ta * tb < 0;
+    }
+
+    void reg(Stars _head, Stars _tail){
+        ArrayList<Stars> new_page = new ArrayList<Stars>();
+        new_page.add(_head);
+        new_page.add(_tail);
+        encyclopedia.add(new_page);
     }
 }

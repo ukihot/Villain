@@ -11,6 +11,7 @@ class Boxers extends Underwear{
     float imai, acrux, ginan;
     float belt;
     ArrayList<Stars> stars;
+    float interstellar;
 
     Boxers(){
         imai = (W_SIZE / gold_rate) /2;
@@ -18,16 +19,19 @@ class Boxers extends Underwear{
         ginan = acrux - ((acrux - (acrux / gold_rate)) / gold_rate);
         belt = acrux - ginan;
         stars = new ArrayList<Stars>();
+        interstellar = imai/10.0;
     }
 
     void main(){
         translate(width / 2, belt * 2);
+        // Plot the stars.
         discovery();
+        // Organize interstellar information.
         n_connect();
     }
 
+    //make Stars-List
     void discovery(){
-        float interstellar_distance = imai /3.0;
         for (int p = 0; p < number_stars; p++){
             float _x = random(-imai, imai);
             float _y = random(-belt, acrux);
@@ -37,8 +41,6 @@ class Boxers extends Underwear{
             } else {
                 star = new Stars(_x, _y, p);
             }
-            // 登録済みの星を振り返る
-            reconsider(star);
             stars.add(star);
         }
     }
@@ -55,7 +57,23 @@ class Boxers extends Underwear{
     //Neighborhood-connect
     void n_connect(){
         for (Stars _head : stars) {
-            _head.display();
+            for (Stars _tail : stars){
+                if (_head.id == _tail.id) continue;
+                if (dist(_head.x, _head.y, _tail.x, _tail.y) > interstellar) continue;
+                reg(_head, _tail);
+            }
+        }
+
+        for (ArrayList<Stars> book1 : encyclopedia){
+            Stars head1=stars.get(book1.get(0).id);
+            Stars tail1=stars.get(book1.get(1).id);
+            for (ArrayList<Stars> book2 : encyclopedia){
+                Stars head2=stars.get(book2.get(0).id);
+                Stars tail2=stars.get(book2.get(1).id);
+                if (!isCross(head1, tail1, head2, tail2)){
+                }
+            }
+            v_line(head1, tail1);
         }
     }
 
@@ -79,19 +97,4 @@ class Boxers extends Underwear{
     //         j += gon;
     //     }
     // }
-
-    void reconsider(Stars _s){
-        for (Stars _t : stars) {
-            for (ArrayList<Stars> book : encyclopedia) {
-                println(book.get(0).x, book.get(0).y, book.get(1).x, book.get(1).y);
-                if (!isCross(_s, _t, book.get(0), book.get(1))){
-                    println("HELLO?");
-                    ArrayList<Stars> new_book = new ArrayList<Stars>();
-                    new_book.add(_s);
-                    new_book.add(_t);
-                    encyclopedia.add(new_book);
-                }
-            }
-        }
-    }
 }
