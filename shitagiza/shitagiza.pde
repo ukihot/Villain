@@ -17,7 +17,6 @@ I drew the underwear, incorporating simple particle simulations I had experience
 // To use it as an icon for Twitter, make the size 400x400.
 final int W_SIZE = 400;
 Boxers boxers;
-Shorts shorts;
 
 void settings(){
     size(W_SIZE,W_SIZE);
@@ -31,7 +30,6 @@ void draw(){
     background( #151515 );
     boxers = new Boxers();
     boxers.main();
-    shorts = new Shorts();
     //noLoop();
     //if (frameCount > 2000) exit();
     if (mousePressed == true) noLoop();
@@ -70,4 +68,12 @@ class Underwear{
         new_page.add(_tail);
         encyclopedia.add(new_page);
     }
+
+    boolean isExistinArray(ArrayList<int> _target, int p){
+        for (int _s : _target) {
+            if (_s == p) return true;
+        }
+        return false;
+    }
 }
+
