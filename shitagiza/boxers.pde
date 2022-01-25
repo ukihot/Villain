@@ -14,7 +14,6 @@ class Boxers extends Underwear {
   float interstellar;
   int first_star_id;
   ArrayList<Integer> next_star_ids;
-  Stars barycenter;
 
   Boxers() {
     imai = (W_SIZE / gold_rate) /2;
@@ -24,7 +23,6 @@ class Boxers extends Underwear {
     stars = new ArrayList<Stars>();
     interstellar = imai/10.0;
     next_star_ids = new ArrayList<Integer>();
-    barycenter = new Stars(acrux, ginan/2, -1);
   }
 
   void display() {
@@ -33,7 +31,7 @@ class Boxers extends Underwear {
     // Plot the stars.
     discovery();
     // Clarify the outline.
-    bordering();
+    make_outline();
     all();
   }
 
@@ -46,17 +44,17 @@ class Boxers extends Underwear {
       float my = 0.0;
       float md = 0.0;
       Stars star;
-
+      check_axis(0);
       if (_y > 0) {
         star = new Stars(thigh_func(_x, _y), _y, p);
       } else {
         star = new Stars(_x, _y, p);
         float _d = dist(0, 0, star.x, star.y);
         if (my > _y && mx > _x && _d > md) {
-            mx = _x;
-            my = _y;
-            md = _d;
-            first_star_id = p;
+          mx = _x;
+          my = _y;
+          md = _d;
+          first_star_id = p;
         }
       }
       stars.add(star);
@@ -70,46 +68,31 @@ class Boxers extends Underwear {
     }
   }
 
-  void bordering() {
+  void make_outline (){
     Stars first_star = stars.get(first_star_id);
-    check_axis(first_star_id);
-    pushMatrix();
-    trace_outline(first_star);
-    popMatrix();
+    float rod = W_SIZE / 10.0;
+    next_star(first_star, rod);
+
     for (int b_id : next_star_ids) {
       stars.get(b_id).display(10, true);
     }
   }
 
-  void trace_outline (Stars _f) {
-    float ini_angle;
-    float rod = W_SIZE / 5.0;
-    boolean notFound = true;
-
-    ini_angle = moving_angle(_f);
-    for (float _angle=ini_angle; notFound; _angle+=0.5){
-      if (next_star_ids.size() > 5) break;
-      for (Stars _star : stars){
-        if (_f.id == _star.id) continue;
-        //TODO:座標変換ではなく、PVectorで調整してみよう。
-        translate(_f.x, _f.y);
-        rotate(_angle);
-        if (_star.x < (rod / 10 ) && _star.y < rod) {
-          if (isExistinArray(next_star_ids, _star.id)) continue;
-          notFound = false;
-          if (_star.id == first_star_id) break;
+  Stars next_star (Stars _f, float rod){
+    float theta = 5.0;
+    PVector root = _f.x_axis.setMag(rod);
+    for (float angle = 0.0; angle < 360.0; angle += theta){
+      for (Stars _star: stars){
+        PVector n = _star.y_axis.sub(_f.y_axis);
+        if (degrees(PVector.angleBetween(root, n)) < theta && !isExistinArray(next_star_ids, _star.id)){
+          println(_star.id);
           next_star_ids.add(_star.id);
-          println(_f.id+"  →  FOUND  →  " + _star.id);
-          trace_outline(_star);
+          return _star;
         }
       }
-      if(notFound) {
-          if (_angle > ini_angle + 360.0) {
-            _angle = ini_angle;
-            rod += rod / 10.0;
-          }
-        }
-      }
+      root = r_vec(root, theta);
+    }
+    return next_star(_f, rod*1.1);
   }
 
   // Neighborhood-connect
@@ -163,12 +146,10 @@ class Boxers extends Underwear {
       return (intercept - _y) / gold_rate;
     }
   }
-
-  float moving_angle(Stars _f){
-    translate(width / 2, belt * 2);
-    PVector s = new PVector(_f.x, _f.y);
-    PVector b = new PVector(barycenter.x, barycenter.y);
-    float angle = PVector.angleBetween(new PVector(1, 0), s.sub(b));
-    return angle;
+  PVector r_vec(PVector tar, float phi){
+    phi = radians(phi);
+    float rx = cos(phi) * tar.x -sin(phi) * tar.y;
+    float ry = sin(phi) * tar.x +cos(phi) * tar.y;
+    return new PVector(rx, ry);
   }
 }

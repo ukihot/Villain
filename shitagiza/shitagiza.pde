@@ -35,7 +35,7 @@ void mouseReleased() {
 // Util like abstract class
 class Underwear {
   final float gold_rate = (sqrt(5.0) + 1.0) / 2.0;
-  final int number_stars = 200;
+  final int number_stars = 100;
   ArrayList < ArrayList < Stars >> encyclopedia = new ArrayList < ArrayList <
     Stars >> ();
   Underwear() {
@@ -70,13 +70,13 @@ class Underwear {
     return false;
   }
 
-  void check_axis(int id){
+  void check_axis(int id) {
     // x-axis
     stroke(#AA0000);
-    line(0,0, 100, 0);
+    line(0, 0, 100, 0);
     // y-axis
     stroke(#00AAAA);
-    line(0,0, 0, 100);
-    text(id,0,0);
+    line(0, 0, 0, 100);
+    text(id, 0, 0);
   }
 }
