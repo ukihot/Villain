@@ -32,8 +32,8 @@ class Boxers extends Underwear {
     // Plot the stars.
     discovery();
     // Clarify the outline.
-    // bordering();
-    all();;
+    bordering();
+    all();
   }
 
   //make Stars-List
@@ -64,7 +64,7 @@ class Boxers extends Underwear {
 
   void all() {
     for (Stars _s : stars) {
-      _s.display();
+      _s.display(1);
     }
   }
 
@@ -76,7 +76,7 @@ class Boxers extends Underwear {
     popMatrix();
 
     for (int b_id : next_star_ids) {
-      stars.get(b_id).display();
+      stars.get(b_id).display(10);
     }
   }
 

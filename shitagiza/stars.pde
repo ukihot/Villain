@@ -8,9 +8,9 @@ class Stars {
     id = _p;
   }
 
-  void display() {
+  void display(float w) {
     stroke(random(255), random(255), random(255));
-    strokeWeight(9);
+    strokeWeight(w);
     point(x, y);
   }
 
