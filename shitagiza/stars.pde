@@ -12,7 +12,7 @@ class Stars {
     stroke(random(255), random(255), random(255));
     strokeWeight(w);
     point(x, y);
-    if (text) text(id, x, y);
+    if (text) text(id+"("+(int)x+","+(int)y+")", x, y);
   }
 
   float get_id(int _id) {

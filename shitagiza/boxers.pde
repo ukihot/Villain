@@ -28,6 +28,7 @@ class Boxers extends Underwear {
   }
 
   void display() {
+    println("試行："+frameCount);
     translate(width / 2, belt * 2);
     // Plot the stars.
     discovery();
@@ -71,35 +72,35 @@ class Boxers extends Underwear {
 
   void bordering() {
     Stars first_star = stars.get(first_star_id);
-
+    check_axis(first_star_id);
     pushMatrix();
-    recursive_search(first_star);
+    trace_outline(first_star);
     popMatrix();
-
     for (int b_id : next_star_ids) {
       stars.get(b_id).display(10, true);
     }
   }
 
-  void recursive_search (Stars _f) {
+  void trace_outline (Stars _f) {
     float ini_angle;
-    float rod = 50.0;
+    float rod = W_SIZE / 5.0;
     boolean notFound = true;
 
     ini_angle = moving_angle(_f);
-    translate(_f.x, _f.y);
     for (float _angle=ini_angle; notFound; _angle+=0.5){
-      rotate(_angle);
       if (next_star_ids.size() > 5) break;
       for (Stars _star : stars){
         if (_f.id == _star.id) continue;
-        if (_star.x < (rod / gold_rate ) && _star.y < rod) {
+        //TODO:座標変換ではなく、PVectorで調整してみよう。
+        translate(_f.x, _f.y);
+        rotate(_angle);
+        if (_star.x < (rod / 10 ) && _star.y < rod) {
           if (isExistinArray(next_star_ids, _star.id)) continue;
           notFound = false;
           if (_star.id == first_star_id) break;
           next_star_ids.add(_star.id);
           println(_f.id+"  →  FOUND  →  " + _star.id);
-          recursive_search(_star);
+          trace_outline(_star);
         }
       }
       if(notFound) {
@@ -164,6 +165,7 @@ class Boxers extends Underwear {
   }
 
   float moving_angle(Stars _f){
+    translate(width / 2, belt * 2);
     PVector s = new PVector(_f.x, _f.y);
     PVector b = new PVector(barycenter.x, barycenter.y);
     float angle = PVector.angleBetween(new PVector(1, 0), s.sub(b));
