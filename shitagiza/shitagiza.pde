@@ -35,7 +35,7 @@ void mouseReleased() {
 // Util like abstract class
 class Underwear {
   final float gold_rate = (sqrt(5.0) + 1.0) / 2.0;
-  final int number_stars = 100;
+  final int number_stars = 20;
   ArrayList < ArrayList < Stars >> encyclopedia = new ArrayList < ArrayList <
     Stars >> ();
   Underwear() {

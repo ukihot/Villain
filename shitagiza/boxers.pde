@@ -43,18 +43,20 @@ class Boxers extends Underwear {
       float _y = random(-belt, acrux);
       float mx = 0.0;
       float my = 0.0;
+      float md = 0.0;
       Stars star;
 
       if (_y > 0) {
         star = new Stars(thigh_func(_x, _y), _y, p);
       } else {
         star = new Stars(_x, _y, p);
-        if (my > _y) {
-          my = _y;
-          if (mx > _x) {
+        float _d = dist(0, 0, star.x, star.y);
+        if (my > _y && mx > _x && _d > md) {
             mx = _x;
+            my = _y;
+            md = _d;
             first_star_id = p;
-          }
+            println(first_star_id);
         }
       }
       stars.add(star);
@@ -97,12 +99,11 @@ class Boxers extends Underwear {
           notFound = false;
           if (_star.id == first_star_id) break;
           next_star_ids.add(_star.id);
-          println(next_star_ids.size()+"FOUND !!! " + _star.id);
+          println(next_star_ids.size()+": FOUND !!! " + _star.id);
           recursive_search(_star);
         }
       }
       if(notFound) {
-          println(_f.id+","+rod+","+_angle+" ... continue ... ");
           if (_angle > ini_angle + 360.0) {
             _angle = ini_angle;
             rod += rod / 10.0;
