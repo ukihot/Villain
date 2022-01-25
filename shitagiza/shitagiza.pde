@@ -63,9 +63,9 @@ class Underwear {
     encyclopedia.add(new_page);
   }
 
-  boolean isExistinArray(ArrayList <Integer> _target, int p) {
-    for (int _s : _target) {
-      if (_s == p) return true;
+  boolean isExistinArray(ArrayList <Stars> _target, int p) {
+    for (Stars _s : _target) {
+      if (_s.id == p) return true;
     }
     return false;
   }
