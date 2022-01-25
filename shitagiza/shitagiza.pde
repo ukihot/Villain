@@ -25,7 +25,7 @@ void setup() {
 void draw() {
   background(#151515 );
   boxers = new Boxers();
-  boxers.main();
+  boxers.display();
   noLoop();
   //if (frameCount > 2000) exit();
   if (mousePressed == true) noLoop();

@@ -14,7 +14,7 @@ class Boxers extends Underwear {
   float interstellar;
   int first_star_id;
   ArrayList<Integer> next_star_ids;
-  Star barycenter;
+  Stars barycenter;
 
   Boxers() {
     imai = (W_SIZE / gold_rate) /2;
@@ -24,15 +24,16 @@ class Boxers extends Underwear {
     stars = new ArrayList<Stars>();
     interstellar = imai/10.0;
     next_star_ids = new ArrayList<Integer>();
-    barycenter = new Stars(acrux, ginan/2);
+    barycenter = new Stars(acrux, ginan/2, -1);
   }
 
-  void main() {
+  void display() {
     translate(width / 2, belt * 2);
     // Plot the stars.
     discovery();
     // Clarify the outline.
-    bordering();
+    // bordering();
+    all();;
   }
 
   //make Stars-List
@@ -61,43 +62,50 @@ class Boxers extends Underwear {
     next_star_ids.add(first_star_id);
   }
 
+  void all() {
+    for (Stars _s : stars) {
+      _s.display();
+    }
+  }
+
   void bordering() {
     Stars first_star = stars.get(first_star_id);
 
     pushMatrix();
     recursive_search(first_star);
     popMatrix();
+
     for (int b_id : next_star_ids) {
       stars.get(b_id).display();
     }
   }
 
   void recursive_search (Stars _f) {
-    //TODO:重心からみて外側に開く。
-    int ini_angle = 315;
-    float rod = 10.0;
+    float ini_angle;
+    float rod = 50.0;
     boolean notFound = true;
 
+    ini_angle = moving_angle(_f);
     translate(_f.x, _f.y);
-
-    for (int _angle=ini_angle; notFound; _angle++){
-      rotate(radians(_angle));
+    for (float _angle=ini_angle; notFound; _angle+=0.5){
+      rotate(_angle);
+      if (next_star_ids.size() > 5) break;
       for (Stars _star : stars){
         if (_f.id == _star.id) continue;
         if (_star.x < (rod / gold_rate ) && _star.y < rod) {
           if (isExistinArray(next_star_ids, _star.id)) continue;
           notFound = false;
-          if (next_star_ids.get(0) == _star.id) break;
+          if (_star.id == first_star_id) break;
           next_star_ids.add(_star.id);
-          println("FOUND !!! " + next_star_ids);
+          println("FOUND !!! " + next_star_ids.size());
           recursive_search(_star);
         }
       }
       if(notFound) {
-          //println(_f.id+","+rod+","+_angle+" ... continue ... ");
-          if (_angle > ini_angle + 360) {
+          println(_f.id+","+rod+","+_angle+" ... continue ... ");
+          if (_angle > ini_angle + 360.0) {
             _angle = ini_angle;
-            rod *= 1.4;
+            rod += rod / 10.0;
           }
         }
       }
@@ -153,5 +161,12 @@ class Boxers extends Underwear {
     } else {
       return (intercept - _y) / gold_rate;
     }
+  }
+
+  float moving_angle(Stars _f){
+    PVector s = new PVector(_f.x, _f.y);
+    PVector b = new PVector(barycenter.x, barycenter.y);
+    float angle = PVector.angleBetween(new PVector(1, 0), s.sub(b));
+    return angle;
   }
 }

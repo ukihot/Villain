@@ -17,4 +17,5 @@ class Stars {
   float get_id(int _id) {
     return x;
   }
+
 }
