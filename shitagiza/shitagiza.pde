@@ -20,14 +20,13 @@ void settings() {
   size(W_SIZE, W_SIZE);
 }
 void setup() {
-  textFont(createFont("Meiryo", 10));
+  textFont(createFont("Meiryo", 11));
 }
 void draw() {
-  background(#151515 );
+  background(#151515);
   boxers = new Boxers();
   boxers.display();
   noLoop();
-  //if (frameCount > 2000) exit();
   if (mousePressed == true) noLoop();
 }
 void mouseReleased() {
@@ -36,7 +35,7 @@ void mouseReleased() {
 // Util like abstract class
 class Underwear {
   final float gold_rate = (sqrt(5.0) + 1.0) / 2.0;
-  final int number_stars = 200;
+  final int number_stars = 100;
   ArrayList < ArrayList < Stars >> encyclopedia = new ArrayList < ArrayList <
     Stars >> ();
   Underwear() {

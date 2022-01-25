@@ -8,10 +8,11 @@ class Stars {
     id = _p;
   }
 
-  void display(float w) {
+  void display(float w, boolean text) {
     stroke(random(255), random(255), random(255));
     strokeWeight(w);
     point(x, y);
+    if (text) text(id, x, y);
   }
 
   float get_id(int _id) {

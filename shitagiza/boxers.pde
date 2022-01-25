@@ -64,7 +64,7 @@ class Boxers extends Underwear {
 
   void all() {
     for (Stars _s : stars) {
-      _s.display(1);
+      _s.display(1, false);
     }
   }
 
@@ -76,7 +76,7 @@ class Boxers extends Underwear {
     popMatrix();
 
     for (int b_id : next_star_ids) {
-      stars.get(b_id).display(10);
+      stars.get(b_id).display(10, true);
     }
   }
 
@@ -97,7 +97,7 @@ class Boxers extends Underwear {
           notFound = false;
           if (_star.id == first_star_id) break;
           next_star_ids.add(_star.id);
-          println("FOUND !!! " + next_star_ids.size());
+          println(next_star_ids.size()+"FOUND !!! " + _star.id);
           recursive_search(_star);
         }
       }
