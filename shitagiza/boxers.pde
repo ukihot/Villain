@@ -56,7 +56,6 @@ class Boxers extends Underwear {
             my = _y;
             md = _d;
             first_star_id = p;
-            println(first_star_id);
         }
       }
       stars.add(star);
@@ -99,7 +98,7 @@ class Boxers extends Underwear {
           notFound = false;
           if (_star.id == first_star_id) break;
           next_star_ids.add(_star.id);
-          println(next_star_ids.size()+": FOUND !!! " + _star.id);
+          println(_f.id+"  →  FOUND  →  " + _star.id);
           recursive_search(_star);
         }
       }
