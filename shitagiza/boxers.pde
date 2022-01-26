@@ -64,6 +64,7 @@ class Boxers extends Underwear {
     }
   }
 
+  //TODO: ここも再帰するのでは？
   void make_outline (){
     Stars first_star = stars.get(0);
     float rod = 10.0;
