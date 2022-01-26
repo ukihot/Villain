@@ -8,7 +8,7 @@ class Stars {
     y = _y;
     id = _p;
     y_axis = new PVector(x, y);
-    x_axis = new PVector(y, -x);
+    x_axis = new PVector(-y, x);
   }
 
   void display(float w, boolean text) {

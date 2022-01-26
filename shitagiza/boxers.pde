@@ -66,31 +66,32 @@ class Boxers extends Underwear {
 
   //TODO: ここも再帰するのでは？
   void make_outline (){
-    Stars first_star = stars.get(0);
-    float rod = 10.0;
-    next_star(first_star, rod);
-
+    Stars first_star = next_stars.get(0);
+    float theta = 0.0;
+    println("初星："+first_star.id);
+    next_star(first_star, theta);
     for (Stars b : next_stars) {
       b.display(10, true);
     }
   }
 
-  //TODO: 角度計算しかしてないからrodが意味ない
-  Stars next_star (Stars _f, float rod){
-    float theta = 5.0;
-    PVector root = _f.x_axis.setMag(rod);
-    for (float angle = 0.0; angle < 360.0; angle += theta){
-      for (Stars _star: stars){
-        PVector n = _star.y_axis.sub(_f.y_axis);
-        if (degrees(PVector.angleBetween(root, n)) < theta && !isExistinArray(next_stars, _star.id)){
-          println(_star.id);
-          next_stars.add(_star);
-          return _star;
-        }
+  Stars next_star (Stars _f, float theta){
+    float angle = 5.0;
+    float ja = 0.0;
+    float jd = 0.0;
+    PVector root =r_vec(_f.y_axis, theta);
+    println("現在の角度："+theta);
+    for (Stars _star: stars){
+      PVector n = _star.y_axis;
+      ja = degrees(PVector.angleBetween(root, n));
+      jd = PVector.dist(root, n);
+      println("【"+_star.id+"】"+"deg:"+ja+"  ,  dis:"+jd);
+      if (degrees(PVector.angleBetween(root, n)) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
+        next_stars.add(_star);
+        return _star;
       }
-      root = r_vec(root, theta);
     }
-    return next_star(_f, rod*1.1);
+    return next_star(_f, theta+=angle);
   }
 
   float thigh_func(float _x, float _y) {
