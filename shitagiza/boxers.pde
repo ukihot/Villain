@@ -58,31 +58,39 @@ class Boxers extends Underwear {
   void make_outline (){
     Stars first_star = next_stars.get(0);
     println("初星："+first_star.id);
-    next_star(first_star, 0.0);
+    next_star(first_star, 0.0, 5.0);
     for (Stars b : next_stars) {
       b.display(10, true);
     }
   }
 
-  Stars next_star (Stars _f, float theta){
+  Stars next_star (Stars _f, float theta, float search_range){
     float angle = 5.0;
+    float rod_len = 5.0;
     float ja = 0.0;
     float jd = 0.0;
-    PVector root =r_vec(_f.y_axis, theta);
-    println("【"+_f.id+"】"+"現在の角度："+theta);
+    PVector root = PVector.sub(r_vec(_f.y_axis, theta),_f.y_axis);
+    println("【"+_f.id+"】"+"現在の角度："+theta+"現在の長さ："+search_range);
+
     for (Stars _star: stars){
       if (_f.id == _star.id) continue;
-      PVector n = _star.y_axis;
+      PVector n = PVector.sub(_star.y_axis, _f.y_axis);
       ja = degrees(PVector.angleBetween(root, n));
-      jd = PVector.dist(root, n);
-      if (compare_angle(root, n) && degrees(ja) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
-        println("FOUND : "+_star.id+" ,"+ ja + ", " + jd);
+      jd = PVector.dist(_f.y_axis, _star.y_axis);
+      if (compare_angle(_f.y_axis, _star.y_axis) &&ja < angle && !isExistinArray(next_stars, _star.id) && jd < search_range){
         next_stars.add(_star);
-        return next_star(_star, 0.0);
+        return next_star(_star, 0.0, rod_len);
       }
-      if (_star.id == next_stars.get(0).id) return _star;
+      if (_star.id == next_stars.get(0).id){
+        println("trace完了");
+        return _star;
+      }
     }
-    return next_star(_f, theta+angle);
+    if (theta+angle > 360.0){
+      theta = 0.0;
+      search_range += rod_len;
+    }
+    return next_star(_f, theta+angle, search_range);
   }
 
   float thigh_func(float _x, float _y) {
