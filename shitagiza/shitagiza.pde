@@ -80,24 +80,43 @@ class Underwear {
     text(id, 0, 0);
   }
 
-  PVector r_vec(PVector tar, float phi){
+  PVector r_vec(PVector tar, float phi) {
     phi = radians(phi);
     float rx = cos(phi) * tar.x -sin(phi) * tar.y;
     float ry = sin(phi) * tar.x +cos(phi) * tar.y;
     return new PVector(rx, ry);
   }
 
-  boolean compare_angle (PVector root, PVector n){
+  boolean compare_angle (PVector root, PVector n) {
     PVector x = new PVector(1, 0);
     float theta = degrees(PVector.angleBetween(x, root));
     float phi = degrees(PVector.angleBetween(x, n));
     boolean flag = false;
 
-    if(root.y < 0){
-      if(theta > phi) flag = true;
+    if (root.y < 0) {
+      if (theta > phi) flag = true;
     } else {
-      if(theta < phi) flag = true;
+      if (theta < phi) flag = true;
     }
     return flag;
+  }
+
+  Stars most_min (ArrayList<Stars> target) {
+    Stars originator = new Stars(0, 0, -1);
+    float md = 0.0;
+    float mx = 0.0;
+    float my = 0.0;
+
+    for (Stars _s : target) {
+      float _x = _s.x;
+      float _y = _s.y;
+      if (my > _y && mx > _x && mag(_x, _y) > md) {
+        md = mag(_x, _y);
+        my = _y;
+        mx = _x;
+        originator = _s;
+      }
+    }
+    return originator;
   }
 }

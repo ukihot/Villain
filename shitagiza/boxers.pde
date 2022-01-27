@@ -31,16 +31,16 @@ class Boxers extends Underwear {
     discovery();
     // Clarify the outline.
     make_outline();
-    all();
+    for (Stars _s : stars) {
+      _s.display(2, false);
+    }
   }
 
   //make Stars-List
   void discovery() {
-    Stars originator = new Stars(0, 0, -1);
     for (int p = 0; p < number_stars; p++) {
       float _x = random(-imai, imai);
       float _y = random(-belt, acrux);
-      float md = 0.0;
       Stars star;
       int first_star_id = 0;
 
@@ -50,26 +50,15 @@ class Boxers extends Underwear {
         star = new Stars(_x, _y, p);
       }
       stars.add(star);
-      if (0 > _y && 0 > _x && mag(_x, _y) > md) {
-        md = mag(_x, _y);
-        originator = star;
-      }
     }
-    next_stars.add(originator);
-  }
-
-  void all() {
-    for (Stars _s : stars) {
-      _s.display(2, false);
-    }
+    next_stars.add(most_min(stars));
   }
 
   //TODO: ここも再帰するのでは？
   void make_outline (){
     Stars first_star = next_stars.get(0);
-    float theta = 0.0;
     println("初星："+first_star.id);
-    next_star(first_star, theta);
+    next_star(first_star, 0.0);
     for (Stars b : next_stars) {
       b.display(10, true);
     }
@@ -80,14 +69,14 @@ class Boxers extends Underwear {
     float ja = 0.0;
     float jd = 0.0;
     PVector root =r_vec(_f.y_axis, theta);
-    println("現在の角度："+theta);
+    println("【"+_f.id+"】"+"現在の角度："+theta);
     for (Stars _star: stars){
       if (_f.id == _star.id) continue;
       PVector n = _star.y_axis;
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(root, n);
-      println("【"+_star.id+"】"+"deg:"+ja+"  ,  dis:"+jd);
-      if (compare_angle(root, n) && degrees(PVector.angleBetween(root, n)) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
+      if (compare_angle(root, n) && degrees(ja) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
+        println("FOUND : "+_star.id+" ,"+ ja + ", " + jd);
         next_stars.add(_star);
         return next_star(_star, 0.0);
       }
