@@ -70,22 +70,16 @@ class Boxers extends Underwear {
     float ja = 0.0;
     float jd = 0.0;
     PVector root = PVector.sub(r_vec(_f.y_axis, theta),_f.y_axis);
-    println("【"+_f.id+"】"+"現在の角度："+theta+"現在の長さ："+search_range);
+    println("【"+_f.id+"】"+"角度："+theta+"長さ："+search_range+"登録数："+next_stars.size());
 
     for (Stars _star: stars){
       if (_f.id == _star.id) continue;
       PVector n = PVector.sub(_star.y_axis, _f.y_axis);
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(_f.y_axis, _star.y_axis);
-      if (compare_angle(_f.y_axis, _star.y_axis) &&ja < angle && jd < search_range){
-        if (_star.id == next_stars.get(0).id){
-        println("trace完了");
-        return _star;
-        }
-        if (!isExistinArray(next_stars, _star.id)){
+      if (compare_angle(_f.y_axis, _star.y_axis) &&ja < angle && jd < search_range && !isExistinArray(next_stars, _star.id)){
         next_stars.add(_star);
-        return next_star(_star, 0.0, rod_len);
-        }
+        return _star;
       }
     }
     if (theta+angle > 360.0){
