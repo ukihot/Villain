@@ -87,13 +87,13 @@ class Boxers extends Underwear {
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(root, n);
       println("【"+_star.id+"】"+"deg:"+ja+"  ,  dis:"+jd);
-      if (degrees(PVector.angleBetween(root, n)) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
+      if (compare_angle(root, n) && degrees(PVector.angleBetween(root, n)) < angle && !isExistinArray(next_stars, _star.id) && jd < 30){
         next_stars.add(_star);
         return next_star(_star, 0.0);
       }
       if (_star.id == next_stars.get(0).id) return _star;
     }
-    return next_star(_f, theta+=angle);
+    return next_star(_f, theta+angle);
   }
 
   float thigh_func(float _x, float _y) {
@@ -103,11 +103,5 @@ class Boxers extends Underwear {
     } else {
       return (intercept - _y) / gold_rate;
     }
-  }
-  PVector r_vec(PVector tar, float phi){
-    phi = radians(phi);
-    float rx = cos(phi) * tar.x -sin(phi) * tar.y;
-    float ry = sin(phi) * tar.x +cos(phi) * tar.y;
-    return new PVector(rx, ry);
   }
 }

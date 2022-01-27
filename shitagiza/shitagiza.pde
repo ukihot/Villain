@@ -32,7 +32,7 @@ void draw() {
 void mouseReleased() {
   loop();
 }
-// Util like abstract class
+// Utils like abstract class
 class Underwear {
   final float gold_rate = (sqrt(5.0) + 1.0) / 2.0;
   final int number_stars = 100;
@@ -78,5 +78,26 @@ class Underwear {
     stroke(#00AAAA);
     line(0, 0, 0, 100);
     text(id, 0, 0);
+  }
+
+  PVector r_vec(PVector tar, float phi){
+    phi = radians(phi);
+    float rx = cos(phi) * tar.x -sin(phi) * tar.y;
+    float ry = sin(phi) * tar.x +cos(phi) * tar.y;
+    return new PVector(rx, ry);
+  }
+
+  boolean compare_angle (PVector root, PVector n){
+    PVector x = new PVector(1, 0);
+    float theta = degrees(PVector.angleBetween(x, root));
+    float phi = degrees(PVector.angleBetween(x, n));
+    boolean flag = false;
+
+    if(root.y < 0){
+      if(theta > phi) flag = true;
+    } else {
+      if(theta < phi) flag = true;
+    }
+    return flag;
   }
 }
