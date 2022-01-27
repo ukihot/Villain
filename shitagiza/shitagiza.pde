@@ -27,7 +27,6 @@ void draw() {
   boxers = new Boxers();
   boxers.display();
   noLoop();
-  if (mousePressed == true) noLoop();
 }
 void mouseReleased() {
   loop();

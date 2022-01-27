@@ -13,6 +13,7 @@ class Boxers extends Underwear {
   ArrayList<Stars> stars;
   float interstellar;
   ArrayList<Stars> next_stars;
+  Stars originator;
 
   Boxers() {
     imai = (W_SIZE / gold_rate) /2;
@@ -22,6 +23,7 @@ class Boxers extends Underwear {
     stars = new ArrayList<Stars>();
     interstellar = imai/10.0;
     next_stars = new ArrayList<Stars>();
+    originator = new Stars(0, 0, -1);
   }
 
   void display() {
@@ -42,7 +44,6 @@ class Boxers extends Underwear {
       float _x = random(-imai, imai);
       float _y = random(-belt, acrux);
       Stars star;
-      int first_star_id = 0;
 
       if (_y > 0) {
         star = new Stars(thigh_func(_x, _y), _y, p);
@@ -51,42 +52,42 @@ class Boxers extends Underwear {
       }
       stars.add(star);
     }
-    next_stars.add(most_min(stars));
+    originator = most_min(stars);
   }
 
   //TODO: ここも再帰するのでは？
-  void make_outline (){
-    Stars first_star = next_stars.get(0);
-    println("初星："+first_star.id);
-    next_star(first_star, 0.0, 5.0);
+  void make_outline () {
+
+    for (Stars i = constellation(originator, 0.0, 10.0); i.id != originator.id; i = constellation(i, 0.0, 10.0)) {
+    }
     for (Stars b : next_stars) {
       b.display(10, true);
     }
   }
 
-  Stars next_star (Stars _f, float theta, float search_range){
-    float angle = 5.0;
-    float rod_len = 5.0;
+  Stars constellation (Stars _f, float theta, float search_range) {
+    float angle = 10.0;
+    float rod_len = 10.0;
     float ja = 0.0;
     float jd = 0.0;
-    PVector root = PVector.sub(r_vec(_f.y_axis, theta),_f.y_axis);
-    println("【"+_f.id+"】"+"角度："+theta+"長さ："+search_range+"登録数："+next_stars.size());
+    PVector root = PVector.sub(r_vec(_f.y_axis, theta), _f.y_axis);
 
-    for (Stars _star: stars){
+    for (Stars _star : stars) {
       if (_f.id == _star.id) continue;
       PVector n = PVector.sub(_star.y_axis, _f.y_axis);
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(_f.y_axis, _star.y_axis);
-      if (compare_angle(_f.y_axis, _star.y_axis) &&ja < angle && jd < search_range && !isExistinArray(next_stars, _star.id)){
+      //println(next_stars.size()+":\n  theta = "+theta+":\n  search_range = "+search_range+":\n  angle = "+ja+":\n  dis = "+jd);
+      if (ja < angle && jd < search_range && !isExistinArray(next_stars, _star.id)) {
         next_stars.add(_star);
         return _star;
       }
     }
-    if (theta+angle > 360.0){
+    if (theta+angle > 360.0) {
       theta = 0.0;
       search_range += rod_len;
     }
-    return next_star(_f, theta+angle, search_range);
+    return constellation(_f, theta+angle, search_range);
   }
 
   float thigh_func(float _x, float _y) {
