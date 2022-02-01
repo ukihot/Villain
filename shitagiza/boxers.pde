@@ -64,19 +64,16 @@ class Boxers extends Underwear {
     }
   }
 
-  Stars constellation (Stars _f, float theta) {
-    float angle = 10.0;
-    float ja = 0.0;
-    float jd = 0.0;
-    PVector root = PVector.sub(r_vec(_f.y_axis, theta), _f.y_axis);
+  Stars constellation (Stars _f, float current_angle) {
+    float theta = 10.0;
+    PVector root = PVector.sub(r_vec(_f.y_axis, current_angle), _f.y_axis);
     ArrayList<Stars> candidate = new ArrayList<Stars>();
 
     for (Stars _star : stars) {
       if (_f.id == _star.id) continue;
       PVector n = PVector.sub(_star.y_axis, _f.y_axis);
-      ja = degrees(PVector.angleBetween(root, n));
-      jd = PVector.dist(_f.y_axis, _star.y_axis);
-      if (ja < 2 && !isExistinArray(next_stars, _star.id)) {
+
+      if (degrees(PVector.angleBetween(root, n)) < 2 && !isExistinArray(next_stars, _star.id)) {
         candidate.add(_star);
       }
     }
@@ -85,10 +82,10 @@ class Boxers extends Underwear {
       next_stars.add(r_star);
       return r_star;
     }
-    if (theta+angle >= 360.0) {
-      theta = 0.0;
+    if (current_angle+theta >= 360.0) {
+      current_angle = 0.0;
     }
-    return constellation(_f, theta+angle);
+    return constellation(_f, current_angle+theta);
   }
 
   float thigh_func(float _x, float _y) {
