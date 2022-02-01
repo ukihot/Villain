@@ -108,16 +108,23 @@ class Underwear {
 
   Stars closist (Stars _m, ArrayList<Stars> target) {
     Stars originator = new Stars(0, 0, -1);
-    PVector m = new PVector(_m.x, _m.y);
+    PVector m = _m.y_axis;
     float dis = W_SIZE;
 
     for (Stars _t : target) {
       PVector _s = new PVector(_t.x, _t.y);
       float _dis = m.dist(_s);
-      if (dis > _dis) {
+      if (dis > _dis && compare_angle(m, _s)) {
         dis = _dis;
         originator = _t;
       }
+    }
+    if (dis == W_SIZE) {
+      return new Stars(
+        _m.x * map(noise(_m.x),0.0, 1.0, 0.9, 1.1),
+        _m.y * map(noise(_m.y),0.0 ,1.0 ,0.9, 1.1),
+        _m.id
+      );
     }
     return originator;
   }
