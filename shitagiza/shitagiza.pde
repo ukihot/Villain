@@ -34,16 +34,22 @@ void mouseReleased() {
 // Utils like abstract class
 class Underwear {
   final float gold_rate = (sqrt(5.0) + 1.0) / 2.0;
-  final int number_stars = 100;
+  final int number_stars = 500;
   ArrayList < ArrayList < Stars >> encyclopedia = new ArrayList < ArrayList <
     Stars >> ();
   Underwear() {
   }
-  void v_line(Stars _en, Stars _ti) {
-    stroke(random(255), random(255), random(255), random(255));
-    strokeWeight(random(8));
+  void s_line(Stars _en, Stars _ti) {
+    stroke(255, 255, 255);
+    strokeWeight(5);
     line(_en.x, _en.y, _ti.x, _ti.y);
   }
+  void v_line(PVector _en, PVector _ti, float c) {
+      stroke(c, c, c);
+      strokeWeight(1.5);
+      line(_en.x, _en.y, _ti.x, _ti.y);
+  }
+
   boolean isCross(Stars head1, Stars tail1, Stars head2, Stars tail2) {
     float ta = (head1.x - tail2.x) * (head2.y - head1.y) + (head1.y - tail2.y) *
       (head1.x - head2.x);
@@ -100,20 +106,17 @@ class Underwear {
     return flag;
   }
 
-  Stars most_min (ArrayList<Stars> target) {
+  Stars closist (Stars _m, ArrayList<Stars> target) {
     Stars originator = new Stars(0, 0, -1);
-    float md = 0.0;
-    float mx = 0.0;
-    float my = 0.0;
+    PVector m = new PVector(_m.x, _m.y);
+    float dis = W_SIZE;
 
-    for (Stars _s : target) {
-      float _x = _s.x;
-      float _y = _s.y;
-      if (my > _y && mx > _x && mag(_x, _y) > md) {
-        md = mag(_x, _y);
-        my = _y;
-        mx = _x;
-        originator = _s;
+    for (Stars _t : target) {
+      PVector _s = new PVector(_t.x, _t.y);
+      float _dis = m.dist(_s);
+      if (dis > _dis) {
+        dis = _dis;
+        originator = _t;
       }
     }
     return originator;

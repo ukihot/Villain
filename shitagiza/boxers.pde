@@ -52,16 +52,16 @@ class Boxers extends Underwear {
       }
       stars.add(star);
     }
-    originator = most_min(stars);
+    originator = closist(new Stars(-width / 2, -belt * 2, 0), stars);
   }
 
-  //TODO: ここも再帰するのでは？
   void make_outline () {
 
     for (Stars i = constellation(originator, 0.0, 10.0); i.id != originator.id; i = constellation(i, 0.0, 10.0)) {
     }
-    for (Stars b : next_stars) {
-      b.display(10, true);
+
+    for (int i = 0; i< next_stars.size() - 1; i++){
+      s_line(next_stars.get(i), next_stars.get(i+1));
     }
   }
 
@@ -71,6 +71,7 @@ class Boxers extends Underwear {
     float ja = 0.0;
     float jd = 0.0;
     PVector root = PVector.sub(r_vec(_f.y_axis, theta), _f.y_axis);
+    ArrayList<Stars> candidate = new ArrayList<Stars>();
 
     for (Stars _star : stars) {
       if (_f.id == _star.id) continue;
@@ -78,12 +79,17 @@ class Boxers extends Underwear {
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(_f.y_axis, _star.y_axis);
       //println(next_stars.size()+":\n  theta = "+theta+":\n  search_range = "+search_range+":\n  angle = "+ja+":\n  dis = "+jd);
-      if (ja < angle && jd < search_range && !isExistinArray(next_stars, _star.id)) {
-        next_stars.add(_star);
-        return _star;
+      if (ja < 2 && !isExistinArray(next_stars, _star.id)) {
+        candidate.add(_star);
       }
     }
-    if (theta+angle > 360.0) {
+    if (candidate.size() != 0){
+      Stars r_star = closist(_f, candidate);
+        next_stars.add(r_star);
+        return r_star;
+    }
+
+    if (theta+angle >= 360.0) {
       theta = 0.0;
       search_range += rod_len;
     }
