@@ -56,8 +56,7 @@ class Boxers extends Underwear {
   }
 
   void make_outline () {
-
-    for (Stars i = constellation(originator, 0.0, 10.0); i.id != originator.id; i = constellation(i, 0.0, 10.0)) {
+    for (Stars i = constellation(originator, 0.0); i.id != originator.id; i = constellation(i, 0.0)) {
     }
 
     for (int i = 0; i< next_stars.size() - 1; i++){
@@ -65,9 +64,8 @@ class Boxers extends Underwear {
     }
   }
 
-  Stars constellation (Stars _f, float theta, float search_range) {
+  Stars constellation (Stars _f, float theta) {
     float angle = 10.0;
-    float rod_len = 10.0;
     float ja = 0.0;
     float jd = 0.0;
     PVector root = PVector.sub(r_vec(_f.y_axis, theta), _f.y_axis);
@@ -78,22 +76,19 @@ class Boxers extends Underwear {
       PVector n = PVector.sub(_star.y_axis, _f.y_axis);
       ja = degrees(PVector.angleBetween(root, n));
       jd = PVector.dist(_f.y_axis, _star.y_axis);
-      //println(next_stars.size()+":\n  theta = "+theta+":\n  search_range = "+search_range+":\n  angle = "+ja+":\n  dis = "+jd);
       if (ja < 2 && !isExistinArray(next_stars, _star.id)) {
         candidate.add(_star);
       }
     }
     if (candidate.size() != 0){
       Stars r_star = closist(_f, candidate);
-        next_stars.add(r_star);
-        return r_star;
+      next_stars.add(r_star);
+      return r_star;
     }
-
     if (theta+angle >= 360.0) {
       theta = 0.0;
-      search_range += rod_len;
     }
-    return constellation(_f, theta+angle, search_range);
+    return constellation(_f, theta+angle);
   }
 
   float thigh_func(float _x, float _y) {
